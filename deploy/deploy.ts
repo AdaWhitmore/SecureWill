@@ -10,8 +10,14 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     log: true,
   });
 
+  const deployedSmartWill = await deploy("SmartWill", {
+    from: deployer,
+    log: true,
+  });
+
   console.log(`FHECounter contract: `, deployedFHECounter.address);
+  console.log(`SmartWill contract: `, deployedSmartWill.address);
 };
 export default func;
-func.id = "deploy_fheCounter"; // id required to prevent reexecution
-func.tags = ["FHECounter"];
+func.id = "deploy_contracts"; // id required to prevent reexecution
+func.tags = ["FHECounter", "SmartWill"];
