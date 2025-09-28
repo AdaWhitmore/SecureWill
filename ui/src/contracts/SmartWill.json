@@ -1,0 +1,337 @@
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "WillCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "WillUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "encryptedContent",
+          "type": "string"
+        },
+        {
+          "internalType": "externalEaddress",
+          "name": "addr1",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "proof1",
+          "type": "bytes"
+        },
+        {
+          "internalType": "externalEaddress",
+          "name": "addr2",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "proof2",
+          "type": "bytes"
+        },
+        {
+          "internalType": "externalEaddress",
+          "name": "addr3",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "proof3",
+          "type": "bytes"
+        }
+      ],
+      "name": "createWill",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "deleteWill",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAddress1",
+      "outputs": [
+        {
+          "internalType": "eaddress",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAddress2",
+      "outputs": [
+        {
+          "internalType": "eaddress",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAddress3",
+      "outputs": [
+        {
+          "internalType": "eaddress",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalWills",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getWillContent",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getWillMetadata",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "hasWill",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "hasWillFor",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "protocolId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalWills",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "encryptedContent",
+          "type": "string"
+        },
+        {
+          "internalType": "externalEaddress",
+          "name": "addr1",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "proof1",
+          "type": "bytes"
+        },
+        {
+          "internalType": "externalEaddress",
+          "name": "addr2",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "proof2",
+          "type": "bytes"
+        },
+        {
+          "internalType": "externalEaddress",
+          "name": "addr3",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "proof3",
+          "type": "bytes"
+        }
+      ],
+      "name": "updateWill",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "wills",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "encryptedContent",
+          "type": "string"
+        },
+        {
+          "internalType": "eaddress",
+          "name": "address1",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "eaddress",
+          "name": "address2",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "eaddress",
+          "name": "address3",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

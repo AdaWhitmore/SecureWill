@@ -1,0 +1,296 @@
+/* Smart Will Application Styles */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.app-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-header p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.connect-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.connect-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.wallet-info {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.wallet-info p {
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+.main-content {
+  display: grid;
+  gap: 30px;
+}
+
+.existing-will,
+.will-form,
+.info-section {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.existing-will h2,
+.will-form h2,
+.info-section h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.will-display {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 5px solid #667eea;
+}
+
+.will-display p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.will-metadata {
+  background: rgba(102, 126, 234, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.will-metadata p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.address-section {
+  background: rgba(102, 126, 234, 0.05);
+  padding: 25px;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.address-section h3 {
+  margin-top: 0;
+  color: #667eea;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 8px;
+}
+
+.address-section p {
+  color: #666;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.submit-btn,
+.delete-btn {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.submit-btn {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.delete-btn {
+  background: linear-gradient(45deg, #dc3545, #fd7e14);
+  color: white;
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+.delete-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+}
+
+.delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.info-section ol {
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.info-section li {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.contract-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.contract-info p {
+  margin: 8px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.contract-info strong {
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    padding: 10px;
+  }
+
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  .app-header p {
+    font-size: 1rem;
+  }
+
+  .existing-will,
+  .will-form,
+  .info-section {
+    padding: 20px;
+  }
+
+  .address-section {
+    padding: 15px;
+  }
+
+  .submit-btn,
+  .delete-btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.submit-btn:disabled,
+.delete-btn:disabled {
+  animation: pulse 1.5s infinite;
+}
