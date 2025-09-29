@@ -1,5 +1,5 @@
 // SmartWill contract (set after deploy to Sepolia)
-export const CONTRACT_ADDRESS = '' as `0x${string}`;
+export const CONTRACT_ADDRESS = '0xf8866CfA500B3ef9765B62D1f2601Afb7091C7c9' as `0x${string}`;
 
 // ABI copied from deployments output for SmartWill
 export const CONTRACT_ABI = [

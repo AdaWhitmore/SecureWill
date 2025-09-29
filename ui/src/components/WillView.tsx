@@ -97,15 +97,15 @@ export function WillView() {
       </div>
       <div className="grid">
         <div>
-          <label>Address #1</label>
+          <label>Lawyer Address #1</label>
           <input className="input" placeholder="0x..." value={dAddr1 ?? manual1} onChange={(e)=>{setDAddr1(null); setManual1(e.target.value);}}/>
         </div>
         <div>
-          <label>Address #2</label>
+          <label>Lawyer Address #2</label>
           <input className="input" placeholder="0x..." value={dAddr2 ?? manual2} onChange={(e)=>{setDAddr2(null); setManual2(e.target.value);}}/>
         </div>
         <div>
-          <label>Address #3</label>
+          <label>Lawyer Address #3</label>
           <input className="input" placeholder="0x..." value={dAddr3 ?? manual3} onChange={(e)=>{setDAddr3(null); setManual3(e.target.value);}}/>
         </div>
       </div>

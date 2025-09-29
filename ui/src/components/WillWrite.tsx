@@ -63,11 +63,11 @@ export function WillWrite() {
         <label>Will Text</label>
         <textarea value={willText} onChange={(e) => setWillText(e.target.value)} rows={6} className="input" required />
 
-        <label>Address #1</label>
+        <label>Lawyer Address #1</label>
         <input value={addr1} onChange={(e) => setAddr1(e.target.value)} className="input" placeholder="0x..." required />
-        <label>Address #2</label>
+        <label>Lawyer Address #2</label>
         <input value={addr2} onChange={(e) => setAddr2(e.target.value)} className="input" placeholder="0x..." required />
-        <label>Address #3</label>
+        <label>Lawyer Address #3</label>
         <input value={addr3} onChange={(e) => setAddr3(e.target.value)} className="input" placeholder="0x..." required />
 
         <button className="btn" disabled={busy || zamaLoading || !address}>{busy ? 'Submitting...' : 'Submit Will'}</button>
