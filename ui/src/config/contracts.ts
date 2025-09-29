@@ -1,25 +1,63 @@
-// Contract configuration for different networks
-export const CONTRACT_CONFIGS = {
-  localhost: {
-    chainId: 31337,
-    smartWillAddress: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    rpcUrl: "http://localhost:8545"
+// SmartWill contract (set after deploy to Sepolia)
+export const CONTRACT_ADDRESS = '' as `0x${string}`;
+
+// ABI copied from deployments output for SmartWill
+export const CONTRACT_ABI = [
+  {
+    "inputs": [
+      { "internalType": "string", "name": "encryptedWill", "type": "string" },
+      { "internalType": "externalEaddress", "name": "extAddr1", "type": "bytes32" },
+      { "internalType": "externalEaddress", "name": "extAddr2", "type": "bytes32" },
+      { "internalType": "externalEaddress", "name": "extAddr3", "type": "bytes32" },
+      { "internalType": "bytes", "name": "inputProof", "type": "bytes" }
+    ],
+    "name": "submitWill",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
-  sepolia: {
-    chainId: 11155111,
-    smartWillAddress: "0x0000000000000000000000000000000000000000", // To be updated after deployment
-    rpcUrl: "https://sepolia.infura.io/v3/your-infura-key"
+  {
+    "inputs": [ { "internalType": "address", "name": "user", "type": "address" } ],
+    "name": "hasWill",
+    "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [ { "internalType": "address", "name": "user", "type": "address" } ],
+    "name": "getEncryptedWill",
+    "outputs": [ { "internalType": "string", "name": "", "type": "string" } ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [ { "internalType": "address", "name": "user", "type": "address" } ],
+    "name": "getEncryptedAddresses",
+    "outputs": [
+      { "internalType": "eaddress", "name": "a1", "type": "bytes32" },
+      { "internalType": "eaddress", "name": "a2", "type": "bytes32" },
+      { "internalType": "eaddress", "name": "a3", "type": "bytes32" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [ { "internalType": "address", "name": "user", "type": "address" } ],
+    "name": "getWillMeta",
+    "outputs": [
+      { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+      { "internalType": "address", "name": "owner", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "name": "WillSubmitted",
+    "type": "event"
   }
-}
-
-// Auto-detect network based on current environment
-export const getCurrentNetwork = () => {
-  // In production, this would check the actual network
-  // For now, default to localhost for development
-  return 'localhost'
-}
-
-export const getContractConfig = () => {
-  const network = getCurrentNetwork()
-  return CONTRACT_CONFIGS[network as keyof typeof CONTRACT_CONFIGS]
-}
+] as const;
