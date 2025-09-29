@@ -12,4 +12,7 @@
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: .5rem; }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
 .plaintext { margin-top: 1rem; padding: .75rem; border-radius: 6px; background: #f3f4f6; }
-
+.info { background: #eef2ff; border: 1px solid #c7d2fe; padding: .75rem; border-radius: 8px; margin-bottom: 1rem; }
+.info h3 { margin: 0 0 .5rem 0; font-size: 1rem; }
+.info ul { margin: 0; padding-left: 1.25rem; }
+.info li { margin: .25rem 0; }

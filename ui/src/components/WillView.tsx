@@ -90,6 +90,9 @@ export function WillView() {
   return (
     <div className="card">
       <h2>Your Will</h2>
+      <p className="mono" style={{marginTop: '.25rem'}}>
+        Decrypt the three addresses using Zama or enter them manually, then decrypt the encrypted will text.
+      </p>
       <p className="mono">Encrypted Will: ***</p>
 
       <div className="row">
@@ -123,4 +126,3 @@ export function WillView() {
     </div>
   );
 }
-

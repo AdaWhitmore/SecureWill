@@ -59,6 +59,9 @@ export function WillWrite() {
   return (
     <div className="card">
       <h2>Write Will</h2>
+      <p className="mono" style={{marginTop: '.25rem', marginBottom: '.75rem'}}>
+        Enter your will text and three addresses. The will is encrypted locally using the three lawyer addresses and then submitted with the addresses encrypted using Zama FHE.
+      </p>
       <form onSubmit={submit} className="form">
         <label>Will Text</label>
         <textarea value={willText} onChange={(e) => setWillText(e.target.value)} rows={6} className="input" required />
@@ -78,4 +81,3 @@ export function WillWrite() {
     </div>
   );
 }
-
