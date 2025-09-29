@@ -84,8 +84,23 @@ export function WillView() {
     }
   };
 
-  if (!address) return <div className="card"><p>Please connect wallet</p></div>;
-  if (!hasRecord) return <div className="card"><p>No will on-chain for this address.</p></div>;
+  if (!address) return (
+    <div className="card">
+      <h2>Connect Wallet</h2>
+      <p className="mono" style={{textAlign: 'center', marginTop: '1rem'}}>
+        Please connect your wallet to view your will
+      </p>
+    </div>
+  );
+
+  if (!hasRecord) return (
+    <div className="card">
+      <h2>No Will Found</h2>
+      <p className="mono" style={{textAlign: 'center', marginTop: '1rem'}}>
+        No will found for this wallet address. Create one using the "Write Will" tab.
+      </p>
+    </div>
+  );
 
   return (
     <div className="card">
@@ -96,7 +111,10 @@ export function WillView() {
       <p className="mono">Encrypted Will: ***</p>
 
       <div className="row">
-        <button className="btn" onClick={decryptAddresses} disabled={busy || !instance}>Decrypt 3 Addresses (Zama)</button>
+        <button className="btn" onClick={decryptAddresses} disabled={busy || !instance}>
+          {busy ? 'Decrypting...' : 'Decrypt 3 Addresses (Zama)'}
+        </button>
+        {busy && <p className="loading">Decrypting addresses using Zama FHE...</p>}
       </div>
       <div className="grid">
         <div>

@@ -74,9 +74,9 @@ export function WillWrite() {
         <input value={addr3} onChange={(e) => setAddr3(e.target.value)} className="input" placeholder="0x..." required />
 
         <button className="btn" disabled={busy || zamaLoading || !address}>{busy ? 'Submitting...' : 'Submit Will'}</button>
-        {zamaLoading && <p>Initializing encryption...</p>}
-        {error && <p style={{color:'#b91c1c'}}>{error}</p>}
-        {ok && <p style={{color:'#065f46'}}>Success</p>}
+        {zamaLoading && <p className="loading">Initializing encryption...</p>}
+        {error && <p className="error">{error}</p>}
+        {ok && <p className="success">Will submitted successfully!</p>}
       </form>
     </div>
   );
