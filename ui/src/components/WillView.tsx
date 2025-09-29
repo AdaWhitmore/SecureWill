@@ -90,7 +90,7 @@ export function WillView() {
   return (
     <div className="card">
       <h2>Your Will</h2>
-      <p className="mono">Encrypted C: {(encryptedWill as string)?.slice(0, 40)}...</p>
+      <p className="mono">Encrypted Will: ***</p>
 
       <div className="row">
         <button className="btn" onClick={decryptAddresses} disabled={busy || !instance}>Decrypt 3 Addresses (Zama)</button>
