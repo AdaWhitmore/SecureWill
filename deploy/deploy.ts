@@ -4,20 +4,12 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
-
-  const deployedFHECounter = await deploy("FHECounter", {
+  await deploy("SmartWill", {
     from: deployer,
+    args: [],
     log: true,
   });
-
-  const deployedSmartWill = await deploy("SmartWill", {
-    from: deployer,
-    log: true,
-  });
-
-  console.log(`FHECounter contract: `, deployedFHECounter.address);
-  console.log(`SmartWill contract: `, deployedSmartWill.address);
 };
 export default func;
-func.id = "deploy_contracts"; // id required to prevent reexecution
-func.tags = ["FHECounter", "SmartWill"];
+func.id = "deploy_smartwill"; // id required to prevent reexecution
+func.tags = ["SmartWill"];
