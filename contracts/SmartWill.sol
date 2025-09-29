@@ -4,168 +4,94 @@ pragma solidity ^0.8.24;
 import {FHE, eaddress, externalEaddress} from "@fhevm/solidity/lib/FHE.sol";
 import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
-/// @title Smart Will Contract with 3-Address Encryption
-/// @notice A secure will storage system using 3-layer address encryption with FHEVM
+/// @title SmartWill - Encrypted will registry using Zama FHEVM
+/// @notice Stores a user-provided encrypted will string and the three addresses used to encrypt it (as encrypted eaddress values)
+/// @dev All view functions take an explicit user parameter; they MUST NOT rely on msg.sender
 contract SmartWill is SepoliaConfig {
-    struct Will {
-        string encryptedContent; // The final encrypted content (C)
-        eaddress address1; // First encryption address (encrypted)
-        eaddress address2; // Second encryption address (encrypted)
-        eaddress address3; // Third encryption address (encrypted)
-        address owner; // Owner of the will
-        uint256 timestamp; // Creation timestamp
-        bool exists; // Whether the will exists
+    struct WillRecord {
+        // Encrypted will content (client-side reversible algorithm using three addresses)
+        string encryptedWill;
+        // Three encrypted addresses (encrypted with Zama FHE)
+        eaddress addr1;
+        eaddress addr2;
+        eaddress addr3;
+        // Metadata
+        uint256 timestamp;
+        address owner;
     }
 
-    mapping(address => Will) public wills;
-    mapping(address => bool) public hasWill;
+    /// @dev mapping of user => will record
+    mapping(address => WillRecord) private _records;
 
-    uint256 public totalWills;
+    event WillSubmitted(address indexed user, uint256 timestamp);
 
-    event WillCreated(address indexed owner, uint256 timestamp);
-    event WillUpdated(address indexed owner, uint256 timestamp);
-
-    /// @notice Creates a new will with 3-address encryption
-    /// @param encryptedContent The final encrypted will content (C)
-    /// @param addr1 First encrypted address
-    /// @param proof1 Proof for first address
-    /// @param addr2 Second encrypted address
-    /// @param proof2 Proof for second address
-    /// @param addr3 Third encrypted address
-    /// @param proof3 Proof for third address
-    function createWill(
-        string calldata encryptedContent,
-        externalEaddress addr1,
-        bytes calldata proof1,
-        externalEaddress addr2,
-        bytes calldata proof2,
-        externalEaddress addr3,
-        bytes calldata proof3
+    /// @notice Submit or replace a will for the caller
+    /// @param encryptedWill The client-side encrypted string C derived from the three addresses
+    /// @param extAddr1 Encrypted handle for address #1
+    /// @param extAddr2 Encrypted handle for address #2
+    /// @param extAddr3 Encrypted handle for address #3
+    /// @param inputProof Zama input proof covering all three handles
+    function submitWill(
+        string calldata encryptedWill,
+        externalEaddress extAddr1,
+        externalEaddress extAddr2,
+        externalEaddress extAddr3,
+        bytes calldata inputProof
     ) external {
-        require(bytes(encryptedContent).length > 0, "Will content cannot be empty");
+        // Convert the external encrypted handles to encrypted eaddress values
+        eaddress a1 = FHE.fromExternal(extAddr1, inputProof);
+        eaddress a2 = FHE.fromExternal(extAddr2, inputProof);
+        eaddress a3 = FHE.fromExternal(extAddr3, inputProof);
 
-        eaddress encryptedAddr1 = FHE.fromExternal(addr1, proof1);
-        eaddress encryptedAddr2 = FHE.fromExternal(addr2, proof2);
-        eaddress encryptedAddr3 = FHE.fromExternal(addr3, proof3);
+        // Allow contract and user to access encrypted addresses (for future decrypt requests)
+        FHE.allowThis(a1);
+        FHE.allowThis(a2);
+        FHE.allowThis(a3);
+        FHE.allow(a1, msg.sender);
+        FHE.allow(a2, msg.sender);
+        FHE.allow(a3, msg.sender);
 
-        wills[msg.sender] = Will({
-            encryptedContent: encryptedContent,
-            address1: encryptedAddr1,
-            address2: encryptedAddr2,
-            address3: encryptedAddr3,
-            owner: msg.sender,
+        _records[msg.sender] = WillRecord({
+            encryptedWill: encryptedWill,
+            addr1: a1,
+            addr2: a2,
+            addr3: a3,
             timestamp: block.timestamp,
-            exists: true
+            owner: msg.sender
         });
 
-        if (!hasWill[msg.sender]) {
-            hasWill[msg.sender] = true;
-            totalWills++;
-            emit WillCreated(msg.sender, block.timestamp);
-        } else {
-            emit WillUpdated(msg.sender, block.timestamp);
-        }
-
-        // Allow the owner to access their encrypted addresses
-        FHE.allow(encryptedAddr1, msg.sender);
-        FHE.allow(encryptedAddr2, msg.sender);
-        FHE.allow(encryptedAddr3, msg.sender);
+        emit WillSubmitted(msg.sender, block.timestamp);
     }
 
-    /// @notice Updates an existing will
-    /// @param encryptedContent The new encrypted will content
-    /// @param addr1 New first encrypted address
-    /// @param proof1 Proof for first address
-    /// @param addr2 New second encrypted address
-    /// @param proof2 Proof for second address
-    /// @param addr3 New third encrypted address
-    /// @param proof3 Proof for third address
-    function updateWill(
-        string calldata encryptedContent,
-        externalEaddress addr1,
-        bytes calldata proof1,
-        externalEaddress addr2,
-        bytes calldata proof2,
-        externalEaddress addr3,
-        bytes calldata proof3
-    ) external {
-        require(hasWill[msg.sender], "No existing will found");
-        require(bytes(encryptedContent).length > 0, "Will content cannot be empty");
-
-        eaddress encryptedAddr1 = FHE.fromExternal(addr1, proof1);
-        eaddress encryptedAddr2 = FHE.fromExternal(addr2, proof2);
-        eaddress encryptedAddr3 = FHE.fromExternal(addr3, proof3);
-
-        wills[msg.sender].encryptedContent = encryptedContent;
-        wills[msg.sender].address1 = encryptedAddr1;
-        wills[msg.sender].address2 = encryptedAddr2;
-        wills[msg.sender].address3 = encryptedAddr3;
-        wills[msg.sender].timestamp = block.timestamp;
-
-        // Allow the owner to access their encrypted addresses
-        FHE.allow(encryptedAddr1, msg.sender);
-        FHE.allow(encryptedAddr2, msg.sender);
-        FHE.allow(encryptedAddr3, msg.sender);
-
-        emit WillUpdated(msg.sender, block.timestamp);
+    /// @notice Check whether a user has a will stored
+    /// @param user The user account to check
+    function hasWill(address user) external view returns (bool) {
+        return bytes(_records[user].encryptedWill).length != 0;
     }
 
-    /// @notice Gets the encrypted will content for the caller
-    /// @return The encrypted will content
-    function getWillContent() external view returns (string memory) {
-        require(hasWill[msg.sender], "No will found");
-        return wills[msg.sender].encryptedContent;
+    /// @notice Get the encrypted will string for a user
+    /// @param user The user account
+    function getEncryptedWill(address user) external view returns (string memory) {
+        return _records[user].encryptedWill;
     }
 
-    /// @notice Gets the first encrypted address for the caller
-    /// @return The first encrypted address
-    function getAddress1() external view returns (eaddress) {
-        require(hasWill[msg.sender], "No will found");
-        return wills[msg.sender].address1;
+    /// @notice Get the three encrypted addresses (Zama eaddress) for a user
+    /// @param user The user account
+    /// @return a1 Encrypted address #1
+    /// @return a2 Encrypted address #2
+    /// @return a3 Encrypted address #3
+    function getEncryptedAddresses(address user) external view returns (eaddress a1, eaddress a2, eaddress a3) {
+        WillRecord storage r = _records[user];
+        return (r.addr1, r.addr2, r.addr3);
     }
 
-    /// @notice Gets the second encrypted address for the caller
-    /// @return The second encrypted address
-    function getAddress2() external view returns (eaddress) {
-        require(hasWill[msg.sender], "No will found");
-        return wills[msg.sender].address2;
-    }
-
-    /// @notice Gets the third encrypted address for the caller
-    /// @return The third encrypted address
-    function getAddress3() external view returns (eaddress) {
-        require(hasWill[msg.sender], "No will found");
-        return wills[msg.sender].address3;
-    }
-
-    /// @notice Gets will metadata for the caller
-    /// @return owner The will owner
-    /// @return timestamp Creation/update timestamp
-    /// @return exists Whether the will exists
-    function getWillMetadata() external view returns (address owner, uint256 timestamp, bool exists) {
-        Will memory will = wills[msg.sender];
-        return (will.owner, will.timestamp, will.exists);
-    }
-
-    /// @notice Checks if an address has a will
-    /// @param account The address to check
-    /// @return Whether the address has a will
-    function hasWillFor(address account) external view returns (bool) {
-        return hasWill[account];
-    }
-
-    /// @notice Gets the total number of wills created
-    /// @return Total number of wills
-    function getTotalWills() external view returns (uint256) {
-        return totalWills;
-    }
-
-    /// @notice Deletes the caller's will
-    function deleteWill() external {
-        require(hasWill[msg.sender], "No will found");
-
-        delete wills[msg.sender];
-        hasWill[msg.sender] = false;
-        totalWills--;
+    /// @notice Get metadata for a user's will
+    /// @param user The user account
+    /// @return timestamp The block timestamp of last submission
+    /// @return owner The owner address that submitted
+    function getWillMeta(address user) external view returns (uint256 timestamp, address owner) {
+        WillRecord storage r = _records[user];
+        return (r.timestamp, r.owner);
     }
 }
+
